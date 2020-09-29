@@ -1,0 +1,10 @@
+.jumbotron-fluid {
+	background-image: url('../img/subway-2893851_1280.jpg');
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.judul {
+	text-shadow: 1px 2px 3px rgba(0,0,0,.5);
+}

@@ -10,9 +10,17 @@ class Tamu extends CI_Controller {
 
 	public function index()
 	{
-		$data['title'] = 'Tamu';
+		$data['title'] = 'Kereta API Indo';
 		$this->load->view('layout/header', $data);
 		$this->load->view('tamu/index');
+		$this->load->view('layout/footer');
+	}
+
+	public function pembayaran()
+	{
+		$data['title'] = 'Pembayaran';
+		$this->load->view('layout/header', $data);
+		$this->load->view('tamu/pembayaran');
 		$this->load->view('layout/footer');
 	}
 

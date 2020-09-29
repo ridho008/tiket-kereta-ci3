@@ -2,8 +2,8 @@
   <div class="container">
     <div class="row">
     	<div class="col-md-8 mt-5">
-    		<h1 class="display-4 mt-5">Selamat Datang PT.Kereta API Indonesia</h1>
-            <p class="lead">Aplikasi website pembelian tiket kereta api sederhana menggunakan codeigniter 3.</p>
+    		<h1 class="display-4 mt-5 text-light judul">Selamat Datang PT.Kereta API Indonesia</h1>
+            <p class="lead text-light judul">Aplikasi website pembelian tiket kereta api sederhana menggunakan codeigniter 3.</p>
     	</div>
     	<div class="col-md-4">
     		<div class="card">
@@ -13,13 +13,13 @@
     			<div class="card-body">
     				<form action="" method="post">
     					<div class="form-group">
-    						<label for="stasiun">Stasiun</label>
+    						<label for="stasiun">Stasiun Asal</label>
     						<div class="input-group">
 						        <div class="input-group-prepend">
 						          <div class="input-group-text"><i class="fas fa-map-marker-alt"></i></div>
 						        </div>
 						        <select name="stasiun" id="stasiun" class="form-control">
-    							   <option value="">-- Pilih Stasiun --</option>
+    							   <option value="">-- Pilih Stasiun Asal --</option>
     						    </select>
 						    </div>
     						
