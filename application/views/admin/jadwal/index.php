@@ -6,7 +6,6 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2 py-5">
-        	<?= $this->session->flashdata('pesan'); ?>
             <div class="card">
                 <div class="card-header bg-dark text-light text-center">
                     Selamat Datang <?= $admin['username']; ?>
@@ -16,6 +15,7 @@
                 	<div class="row">
                 		<div class="col-md-8">
                 			<button type="button" class="btn btn-primary tombolTambahJadwal mb-2" data-toggle="modal" data-target="#formModalJadwal"><i class="fas fa-plus-circle"></i> Tambah Data Jadwal</button>
+                            <?= $this->session->flashdata('pesan'); ?>
                 		</div>
                 	</div>
                 	<div class="table-responsive">
@@ -43,8 +43,8 @@
                                    <td><?= date('d-m-Y', strtotime($j['tgl_sampai'])); ?></td>
                                    <td><?= $j['kelas']; ?></td>
                                    <td>
-                                   	<button type="button" class="btn btn-primary tombolUbahJadwal" data-toggle="modal" data-id="<?= $j['id_jadwal']; ?>" data-target="#formModalJadwal"><i class="fas fa-edit"></i></button>
-                                   	<a href="<?= base_url('jadwal/hapus/') . $j['id_jadwal']; ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                   	<button type="button" class="btn btn-primary tombolUbahJadwal btn-sm" data-toggle="modal" data-id="<?= $j['id_jadwal']; ?>" data-target="#formModalJadwal"><i class="fas fa-edit"></i></button>
+                                   	<a href="<?= base_url('jadwal/hapus/') . $j['id_jadwal']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ?')"><i class="fas fa-trash"></i></a>
                                    </td>
                                 </tr>
                 				<?php endforeach; ?>

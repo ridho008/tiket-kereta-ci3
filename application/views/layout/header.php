@@ -18,9 +18,13 @@
 	  </button>
 	  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 	    <div class="navbar-nav">
-	      <a class="nav-link<?= $this->uri->segment(1) != 'tamu' ? ' active' : ''; ?>" href="<?= base_url(); ?>">Home</a>
-	      <a class="nav-link<?= $this->uri->segment(2) == 'pembayaran' ? ' active' : ''; ?>" href="<?= base_url('tamu/pembayaran'); ?>">Konfirmasi Pembayaran</a>
+	      <a class="nav-link<?= $this->uri->segment(0) == '/' ? ' active' : ''; ?>" href="<?= base_url(); ?>">Home</a>
+	      <a class="nav-link<?= $this->uri->segment(1) == 'tamu' ? ' active' : ''; ?>" href="<?= base_url('tamu/pembayaran'); ?>">Konfirmasi Pembayaran</a>
+	      <?php if($this->session->userdata('username')) : ?>
 	      <a class="nav-link<?= $this->uri->segment(1) == 'jadwal' ? ' active' : ''; ?>" href="<?= base_url('jadwal'); ?>">Kelola Jadwal</a>
+	      <?php else : ?>
+	      	<a class="nav-link<?= $this->uri->segment(1) == 'admin' ? ' active' : ''; ?>" href="<?= base_url('admin'); ?>">Login</a>
+	  		<?php endif; ?>
 	    </div>
 	  </div>
 	</div>

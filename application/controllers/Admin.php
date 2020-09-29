@@ -12,7 +12,7 @@ class Admin extends CI_Controller {
 	public function index()
 	{
 		$data['title'] = 'Login';
-
+		$this->cekLogin();
 		$this->form_validation->set_rules('username', 'Username', 'required|trim');
 		$this->form_validation->set_rules('password', 'Password', 'required|trim');
 		if($this->form_validation->run() == FALSE) {
@@ -56,6 +56,13 @@ class Admin extends CI_Controller {
 		$this->session->unset_userdata('username');
 		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Berhasil Logout.</div>');
 		redirect('admin');
+	}
+
+	public function cekLogin()
+	{
+		if($this->session->userdata('username')) {
+			redirect('dashboard');
+		}
 	}
 
 }

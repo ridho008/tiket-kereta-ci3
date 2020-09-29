@@ -5,6 +5,7 @@ class Jadwal extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		cekSession();
 		$this->load->model('Jadwal_model');
 		$this->load->library('form_validation');
 	}
@@ -32,16 +33,16 @@ class Jadwal extends CI_Controller {
 		}
 	}
 
-	public function ubahstasiun()
+	public function ubahjadwal()
 	{
-		$this->Dashboard_model->ubahDataStasiun($_POST);
-		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Stasiun Berhasil Diubah.</div>');
-		redirect('dashboard');
+		$this->Jadwal_model->ubahDataJadwal($_POST);
+		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Jadwal Stasiun Berhasil Diubah.</div>');
+		redirect('jadwal');
 	}
 
-	public function getubah()
+	public function getjadwal()
 	{
-		echo json_encode($this->Dashboard_model->getStasiunById($_POST['id']));
+		echo json_encode($this->Jadwal_model->getJadwalById($_POST['id']));
 	}
 
 	public function hapus($id)

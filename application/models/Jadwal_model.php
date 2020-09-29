@@ -26,17 +26,25 @@ class Jadwal_model extends CI_Model {
 		$this->db->insert('jadwal', $data);
 	}
 
-	public function ubahDataStasiun($data)
+	public function ubahDataJadwal($data)
 	{
-		$stasiun['nama_stasiun'] = html_escape($data['stasiun']);
-		$id_stasiun = $data['id_stasiun'];
-		$this->db->where('id_stasiun', $id_stasiun);
-		$this->db->update('stasiun', $stasiun);
+		$id_jadwal = $data['id_jadwal'];
+		$arr = [
+			'nama_kereta' => html_escape($data['nama']),
+			'asal' => html_escape($data['asal']),
+			'tujuan' => html_escape($data['tujuan']),
+			'tgl_berangkat' => html_escape($data['tgl_berangkat']),
+			'tgl_sampai' => html_escape($data['tgl_sampai']),
+			'kelas' => html_escape($data['kelas'])
+		];
+
+		$this->db->where('id_jadwal', $id_jadwal);
+		$this->db->update('jadwal', $arr);
 	}
 
-	public function getStasiunById($id)
+	public function getJadwalById($id)
 	{
-		return $this->db->get_where('stasiun', ['id_stasiun' => $id])->row_array();
+		return $this->db->get_where('jadwal', ['id_jadwal' => $id])->row_array();
 	}
 
 }
