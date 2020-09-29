@@ -39,7 +39,7 @@ class Admin extends CI_Controller {
 				];
 				$this->session->set_userdata($data);
 				$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">'. $data['username'] .' Berhasil Masuk ke Dashboard</div>');
-				redirect('admin/dashboard');
+				redirect('dashboard');
 			} else {
 				$this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">Password salah!!.</div>');
 				redirect('admin');
@@ -48,15 +48,6 @@ class Admin extends CI_Controller {
 			$this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">Akun tidak terdaftar!!.</div>');
 			redirect('admin');
 		}
-	}
-
-	public function dashboard()
-	{
-		$data['title'] = 'Dashboard';
-		$data['admin'] = $this->db->get_where('admin', ['username' => $this->session->userdata('username')])->row_array();
-		$this->load->view('layout/header', $data);
-		$this->load->view('admin/dashboard', $data);
-		$this->load->view('layout/footer');	
 	}
 
 	public function logout()
