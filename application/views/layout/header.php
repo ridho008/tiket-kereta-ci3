@@ -20,6 +20,7 @@
 	    <div class="navbar-nav">
 	      <a class="nav-link<?= $this->uri->segment(1) != 'tamu' ? ' active' : ''; ?>" href="<?= base_url(); ?>">Home</a>
 	      <a class="nav-link<?= $this->uri->segment(2) == 'pembayaran' ? ' active' : ''; ?>" href="<?= base_url('tamu/pembayaran'); ?>">Konfirmasi Pembayaran</a>
+	      <a class="nav-link<?= $this->uri->segment(1) == 'jadwal' ? ' active' : ''; ?>" href="<?= base_url('jadwal'); ?>">Kelola Jadwal</a>
 	    </div>
 	  </div>
 	</div>
