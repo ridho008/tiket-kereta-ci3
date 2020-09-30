@@ -36,12 +36,17 @@
                             <th>Jumlah</th>
                             <td><span><?= $_GET['p']; ?> Penumpang</span></td>
                         </tr>
+                        <tr>
+                            <th>Harga / Tiket</th>
+                            <td>Rp.<?= number_format($info['harga'], 0, ',', '.'); ?></td>
+                        </tr>
                     </table>
                 </div>
             </div>
             <form action="<?= base_url('pesanTiket'); ?>" method="post">
             <input type="text" name="penumpang" value="<?= $_GET['p']; ?>">
             <input type="text" name="id_jadwal" value="<?= $info['id_jadwal']; ?>">
+            <input type="text" name="harga" value="<?= $info['harga']; ?>">
             <div class="card">
                 <div class="card-header bg-primary text-light text-center font-weight-bold">
                     Detail Penumpang

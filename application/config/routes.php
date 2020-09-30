@@ -52,5 +52,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'tamu';
 $route['pesan/(:any)'] = 'tamu/pesan/$1';
 $route['pesanTiket'] = 'tamu/pesanTiket';
+$route['pembayaran'] = 'tamu/pembayaran';
+$route['cekKonfirmasi'] = 'tamu/cekKonfirmasi';
+$route['kirimKonfirmasi'] = 'tamu/kirimKonfirmasi';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

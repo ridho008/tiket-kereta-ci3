@@ -20,6 +20,7 @@ class Jadwal_model extends CI_Model {
 			'tgl_berangkat' => html_escape($this->input->post('tgl_berangkat', true)),
 			'tgl_sampai' => html_escape($this->input->post('tgl_sampai', true)),
 			'kelas' => html_escape($this->input->post('kelas', true)),
+			'harga' => html_escape($this->input->post('harga', true)),
 			'status' => '1'
 		];
 

@@ -21,6 +21,7 @@ class Jadwal extends CI_Controller {
 		$this->form_validation->set_rules('tujuan', 'Stasiun Tujuan', 'required|trim');
 		$this->form_validation->set_rules('tgl_berangkat', 'Tanggal Berangkat', 'required|trim');
 		$this->form_validation->set_rules('tgl_sampai', 'Tanggal Sampai', 'required|trim');
+		$this->form_validation->set_rules('harga', 'Harga', 'required|trim');
 		$this->form_validation->set_rules('kelas', 'Kelas', 'required|trim');
 		if($this->form_validation->run() == FALSE) {
 			$this->load->view('layout/header', $data);

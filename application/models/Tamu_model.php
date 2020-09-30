@@ -57,4 +57,43 @@ class Tamu_model extends CI_Model {
 		return $this->db->get('tiket')->num_rows();
 	}
 
+	public function countPembayaran()
+	{
+		return $this->db->get('pembayaran')->num_rows();
+	}
+
+	public function tambahDataPembayaran($noPembayaran, $totalPembayaran, $noTiket)
+	{
+		$data = [
+			'no_pembayaran' => $noPembayaran,
+			'no_tiket' => $noTiket,
+			'total_pembayaran' => $totalPembayaran,
+			'status' => '0'
+		];
+
+		$this->db->insert('pembayaran', $data);
+	}
+
+	public function pembayaranByKode($kodeBoking)
+	{
+		$this->db->where('no_pembayaran', $kodeBoking);
+		return $this->db->get('pembayaran');
+	}
+
+	public function cekKonfirmasi($nomor)
+	{
+		$this->db->where('no_tiket', $nomor);
+		return $this->db->get('penumpang')->result_array();
+	}
+
+	public function uploadBuktiPembayaran($bukti, $kode)
+	{
+		$data = [
+			'foto_bukti' => $bukti
+		];
+
+		$this->db->where('no_pembayaran', $kode);
+		$this->db->update('pembayaran', $data);
+	}
+
 }

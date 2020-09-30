@@ -8,7 +8,7 @@
     	<div class="col-md-4">
     		<div class="card">
     			<div class="card-header">
-    				<h4 class="lead text-muted">Lokasi Tujuan</h4>
+    				<h6 class="text-center lead">Jadwal Kereta API</h6>
     			</div>
     			<div class="card-body">
     				<form action="<?= base_url('tamu/cari_tiket'); ?>" method="post">
@@ -47,7 +47,7 @@
 						        <div class="input-group-prepend">
 						          <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
 						        </div>
-						        <input type="date" name="tgl" id="tgl" class="form-control">
+						        <input type="date" value="<?= date('Y-m-d'); ?>" min="<?= date('Y-m-d') ?>" name="tgl" id="tgl" class="form-control">
 						    </div>
     					</div>
     					<div class="form-group">

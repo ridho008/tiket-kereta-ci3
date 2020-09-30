@@ -115,6 +115,11 @@
                 </select>
                 <small class="muted text-danger"><?= form_error('kelas'); ?></small>
             </div>
+            <div class="form-group">
+                <label for="harga">Harga</label>
+                <input type="number" name="harga" id="harga" class="form-control">
+                <small class="muted text-danger"><?= form_error('harga'); ?></small>
+            </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 		        <button type="submit" class="btn btn-primary">Ubah</button>
