@@ -6,6 +6,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3 py-5">
+            <?= $this->session->flashdata('pesan'); ?>
             <div class="card">
                 <div class="card-header bg-danger text-light text-center">
                     Formulir Pembayaran

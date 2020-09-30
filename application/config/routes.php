@@ -50,5 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'tamu';
+$route['pesan/(:any)'] = 'tamu/pesan/$1';
+$route['pesanTiket'] = 'tamu/pesanTiket';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

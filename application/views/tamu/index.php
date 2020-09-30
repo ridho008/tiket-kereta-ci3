@@ -98,7 +98,7 @@
                             <td><?= date('d-m-Y', strtotime($t['tgl_berangkat'])); ?></td>
                             <td><?= date('d-m-Y', strtotime($t['tgl_sampai'])); ?></td>
                             <td>
-                                <a href="" class="btn btn-primary">Pesan</a>
+                                <a href="<?= base_url('pesan/') . $t['id_jadwal'] . '?p=' . $penumpang ?>" class="btn btn-primary">Pesan</a>
                             </td>
                         </tr>
                         <?php endforeach; ?>
