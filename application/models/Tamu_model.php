@@ -89,11 +89,24 @@ class Tamu_model extends CI_Model {
 	public function uploadBuktiPembayaran($bukti, $kode)
 	{
 		$data = [
-			'foto_bukti' => $bukti
+			'foto_bukti' => $bukti,
+			'status' => '1'
 		];
 
 		$this->db->where('no_pembayaran', $kode);
 		$this->db->update('pembayaran', $data);
+	}
+
+	public function pemilihanKursi($data, $noTiket)
+	{
+		$this->db->where('no_tiket', $noTiket);
+		$this->db->update('penumpang', $data);
+	}
+
+	public function getPenumpangById($id)
+	{
+		$this->db->where('id_penumpang', $id);
+		return $this->db->get('penumpang')->row_array();
 	}
 
 }

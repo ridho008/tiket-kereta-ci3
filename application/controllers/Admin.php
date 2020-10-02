@@ -65,4 +65,22 @@ class Admin extends CI_Controller {
 		}
 	}
 
+	// Konfirmasi Pembayaran
+	public function pembayaran()
+	{
+		$data['title'] = 'Konfirmasi Pembayaran';
+		$data['admin'] = $this->db->get_where('admin', ['username' => $this->session->userdata('username')])->row_array();
+		$data['pembayaran'] = $this->Admin_model->getKonfirmasiPembayaran();
+		$this->load->view('layout/header', $data);
+		$this->load->view('admin/pembayaran/index');
+		$this->load->view('layout/footer');
+	}
+
+	public function verifikasi($id)
+	{
+		$this->Admin_model->perbaruiPembayaran($id);
+		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Berhasil Melakukan Konfirmasi Pembayaran.</div>');
+		redirect('admin/pembayaran');
+	}
+
 }

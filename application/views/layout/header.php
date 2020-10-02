@@ -22,6 +22,8 @@
 	      <a class="nav-link<?= $this->uri->segment(1) == 'tamu' ? ' active' : ''; ?>" href="<?= base_url('tamu/konfirmasi'); ?>">Konfirmasi Pembayaran</a>
 	      <?php if($this->session->userdata('username')) : ?>
 	      <a class="nav-link<?= $this->uri->segment(1) == 'jadwal' ? ' active' : ''; ?>" href="<?= base_url('jadwal'); ?>">Kelola Jadwal</a>
+	      <a class="nav-link<?= $this->uri->segment(2) == 'pembayaran' ? ' active' : ''; ?>" href="<?= base_url('admin/pembayaran'); ?>">Pembayaran</a>
+	      <a class="nav-link<?= $this->uri->segment(2) == 'logout' ? ' active' : ''; ?>" href="<?= base_url('admin/logout'); ?>">Logout</a>
 	      <?php else : ?>
 	      	<a class="nav-link<?= $this->uri->segment(1) == 'admin' ? ' active' : ''; ?>" href="<?= base_url('admin'); ?>">Login</a>
 	  		<?php endif; ?>
