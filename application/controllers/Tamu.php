@@ -213,4 +213,14 @@ class Tamu extends CI_Controller {
 	    redirect('tamu/konfirmasi?kode=' . $kode);
 	}
 
+	public function cetak()
+	{
+		$data['title'] = 'Cetak Pembayaran Kereta API';
+		$noTiket = $this->input->post('no_tiket');
+		$data['detail'] = $this->Tamu_model->ambilTiketPembayaran($noTiket);
+		$data['jmlPenumpang'] = $this->Tamu_model->getPenumpangByNoTiket($noTiket);
+		$this->load->view('layout/header', $data);
+		$this->load->view('cetak/print_pembayaran', $data);
+	}
+
 }

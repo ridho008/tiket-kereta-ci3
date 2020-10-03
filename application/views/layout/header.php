@@ -10,6 +10,7 @@
 </head>
 <body>
 
+<?php if($this->uri->segment(2) != 'cetak') : ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	<div class="container">
 	  <a class="navbar-brand" href="<?= base_url(); ?>">Kerete API</a>
@@ -31,3 +32,4 @@
 	  </div>
 	</div>
 </nav>
+<?php endif; ?>

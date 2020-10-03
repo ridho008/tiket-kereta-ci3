@@ -56,7 +56,9 @@
                                 <th>Gerbong</th>
                                 <th>Bagian</th>
                                 <th>Kursi</th>
+                                <?php if($noTiket['status'] != 2) : ?>
                                 <th><i class="fas fa-cogs"></i></th>
+                                <?php endif; ?>
                             </tr>
                             <?php foreach($detail as $d) : ?>
                             <tr>
@@ -83,6 +85,7 @@
                                         <?= $d['kursi']; ?>
                                     <?php endif; ?>
                                 </td>
+                                <?php if($noTiket['status'] != 2) : ?>
                                 <td>
                                     <?php if(empty($d['kursi']) && empty($d['gerbong']) && empty($d['bagian'])) : ?>
                                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#pilihGerbong<?= $d['id_penumpang']; ?>"><i class="fas fa-hand-pointer"></i></button>
@@ -90,6 +93,7 @@
                                         <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#gantiGerbong<?= $d['id_penumpang']; ?>"><i class="fas fa-pen-square"></i></button>
                                     <?php endif; ?>
                                 </td>
+                                <?php endif; ?>
                             </tr>
                             <!-- Modal Pilih -->
                             <div class="modal fade" id="pilihGerbong<?= $d['id_penumpang']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -235,6 +239,12 @@
                             <?php endforeach; ?>
                         </table>
                         <p class="float-right">Total Pembayaran : <strong>Rp.<?= number_format($noTiket['total_pembayaran'], 0, ',', '.'); ?></strong></p>
+                        <?php if($noTiket['status'] == 2) : ?>
+                        <form action="<?= base_url('tamu/cetak'); ?>" method="post" target="_blank">
+                            <input type="text" name="no_tiket" value="<?= $noTiket['no_tiket']; ?>">
+                            <button class="btn btn-secondary btn-sm"><i class="fas fa-print"></i> Cetak</button>
+                        </form>
+                        <?php endif; ?>
                         <?php if($noTiket['status'] == 0) : ?>
                         <?= form_open_multipart('kirimKonfirmasi'); ?>
                         <!-- <img src="" class="img-fluid img-thumbnail" id="gambar-gerbong">

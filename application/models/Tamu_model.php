@@ -46,7 +46,8 @@ class Tamu_model extends CI_Model {
 			'nama_pemesan' => html_escape($this->input->post('nama_pemesan', true)),
 			'email' => html_escape($this->input->post('email', true)),
 			'no_telp' => html_escape($this->input->post('no_telp', true)),
-			'alamat' => html_escape($this->input->post('alamat', true))
+			'alamat' => html_escape($this->input->post('alamat', true)),
+			'tanggal' => date('Y-m-d')
 		];
 
 		$this->db->insert('tiket', $data);
@@ -115,6 +116,12 @@ class Tamu_model extends CI_Model {
 		return $this->db->get('penumpang')->row_array();
 	}
 
+	public function getPenumpangByNoTiket($noTiket)
+	{
+		$this->db->where('no_tiket', $noTiket);
+		return $this->db->get('penumpang')->num_rows();
+	}
+
 	public function getTiketByKode($noTiket)
 	{
 		return $this->db->get_where('tiket', ['no_tiket' => $noTiket])->row_array();
@@ -128,6 +135,15 @@ class Tamu_model extends CI_Model {
 		$this->db->where('tiket.id_jadwal', $id_jadwal);
 		$this->db->join('tiket', 'tiket.no_tiket = penumpang.no_tiket');
 		return $this->db->get('penumpang')->num_rows();
+	}
+
+	public function ambilTiketPembayaran($noTiket)
+	{
+		$this->db->select('*, Asal.nama_stasiun AS Asal, Tujuan.nama_stasiun AS Tujuan');
+		$this->db->join('jadwal', 'jadwal.id_jadwal = tiket.id_jadwal');
+		$this->db->join('stasiun AS Asal', 'jadwal.asal = Asal.id_stasiun', 'left');
+		$this->db->join('stasiun AS Tujuan', 'jadwal.tujuan = Tujuan.id_stasiun', 'left');
+		return $this->db->get('tiket')->row_array();
 	}
 
 }
