@@ -69,7 +69,7 @@
       </div>
       <div class="modal-body">
         <form method="post" action="">
-        	<input type="text" name="id_jadwal" id="id_jadwal">
+        	<input type="hidden" name="id_jadwal" id="id_jadwal">
         	<div class="form-group">
         		<label for="nama">Nama Kereta</label>
         		<input type="text" name="nama" id="nama" class="form-control">

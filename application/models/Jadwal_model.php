@@ -36,7 +36,8 @@ class Jadwal_model extends CI_Model {
 			'tujuan' => html_escape($data['tujuan']),
 			'tgl_berangkat' => html_escape($data['tgl_berangkat']),
 			'tgl_sampai' => html_escape($data['tgl_sampai']),
-			'kelas' => html_escape($data['kelas'])
+			'kelas' => html_escape($data['kelas']),
+			'harga' => html_escape($data['harga'])
 		];
 
 		$this->db->where('id_jadwal', $id_jadwal);

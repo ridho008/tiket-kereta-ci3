@@ -22,6 +22,15 @@ $(function() {
 		$('#formJadwalModalLabel').html('Tambah Data Jadwal Stasiun');
 		$('.modal-footer button[type=submit]').html('Tambah');
 
+		$('#id_jadwal').val('');
+		$('#nama').val('');
+		$('#asal').val('');
+		$('#tujuan').val('');
+		$('#tgl_berangkat').val('');
+		$('#tgl_sampai').val('');
+		$('#kelas').val('');
+		$('#harga').val('');
+
 	});
 
 	$('.tombolUbahJadwal').click(function() {
@@ -46,13 +55,14 @@ $(function() {
 				$('#tgl_berangkat').val(data.tgl_berangkat);
 				$('#tgl_sampai').val(data.tgl_sampai);
 				$('#kelas').val(data.kelas);
+				$('#harga').val(data.harga);
 			}
 		})
 	});
 
-	// $('.bagianA').hide();
-	// $('.bagianB').hide();
-	// var URL='http://localhost/tiket-kereta-ci3/tamu/konfirmasi';
+	$('.bagianA').hide();
+	$('.bagianB').hide();
+	// var URL='http://localhost/tiket-kereta-ci3/tamu/konfirmasi?kode=';
 
 	// var arr=URL.split('/');//arr[0]='http://localhost'
 	//                        //arr[1]='tiket-kereta-ci3'
@@ -61,10 +71,10 @@ $(function() {
 
 	// var parameter=arr[arr.length-1].split('/');//parameter[0]='konfirmasi'
 
-	// var p_value=parameter[0].split('/')[0];//p_value='10';
+	// var p_value=parameter[0].split('=')[0];//p_value='10';
 	// console.log(p_value);                                          //parameter[1]='p=10'
 
-	// if(p_value === 'konfirmasi') {
+	// if(p_value === 'konfirmasi?kode') {
 	// 	$('.bagian').change(function() {
 	// 		var bagian = $('.bagian').val();
 	// 		var bagianA = $('.bagianA');

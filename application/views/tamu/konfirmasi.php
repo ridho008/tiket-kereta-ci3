@@ -49,13 +49,14 @@
                         <div class="alert alert-success" role="alert"><i class="fas fa-info-circle"></i> Sudah Lunas !</div>
                     <?php } ?>
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered">
+                        <table class="table table-striped table-bordered text-center">
                             <tr>
                                 <th>Nama</th>
                                 <th>Identitas</th>
                                 <th>Gerbong</th>
                                 <th>Bagian</th>
                                 <th>Kursi</th>
+                                <th><i class="fas fa-cogs"></i></th>
                             </tr>
                             <?php foreach($detail as $d) : ?>
                             <tr>
@@ -63,23 +64,30 @@
                                 <td><?= $d['no_identitas']; ?></td>
                                 <td>
                                     <?php if(empty($d['gerbong'])) : ?>
-                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#pilihGerbong<?= $d['id_penumpang']; ?>">Pilih</button>
+                                        <span class="badge badge-warning" data-toggle="tooltip" data-placement="bottom" title="Pilih Gerbong">Pilih</span>
                                     <?php else : ?>
-                                        <button type="button" class="btn btn-info btn-sm tombolGerbong" data-toggle="modal" data-target="#gantiGerbong<?= $d['id_penumpang']; ?>">Ganti</button>
+                                        <?= $d['gerbong']; ?>
                                     <?php endif; ?>
                                 </td>
                                 <td>
                                     <?php if(empty($d['bagian'])) : ?>
-                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#pilihGerbong<?= $d['id_penumpang']; ?>">Pilih</button>
+                                        <span class="badge badge-warning" data-toggle="tooltip" data-placement="bottom" title="Pilih Bagian">Pilih</span>
                                     <?php else : ?>
-                                        <button type="button" class="btn btn-info btn-sm tombolGantiGerbong" data-toggle="modal" data-target="#gantiGerbong<?= $d['id_penumpang']; ?>">Ganti</button>
+                                        <?= strtoupper($d['bagian']); ?>
                                     <?php endif; ?>
                                 </td>
                                 <td>
                                     <?php if(empty($d['kursi'])) : ?>
-                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#pilihGerbong<?= $d['id_penumpang']; ?>">Pilih</button>
+                                        <span class="badge badge-warning" data-toggle="tooltip" data-placement="bottom" title="Pilih Kursi">Pilih</span>
                                     <?php else : ?>
-                                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#gantiGerbong<?= $d['id_penumpang']; ?>">Ganti</button>
+                                        <?= $d['kursi']; ?>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php if(empty($d['kursi']) && empty($d['gerbong']) && empty($d['bagian'])) : ?>
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#pilihGerbong<?= $d['id_penumpang']; ?>"><i class="fas fa-hand-pointer"></i></button>
+                                    <?php else : ?>
+                                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#gantiGerbong<?= $d['id_penumpang']; ?>"><i class="fas fa-pen-square"></i></button>
                                     <?php endif; ?>
                                 </td>
                             </tr>
@@ -94,8 +102,10 @@
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    <form action="" method="post">
-                                        <input type="text" value="<?= $d['id_penumpang']; ?>">
+                                    <form action="<?= base_url('tamu/pilihgerbong'); ?>" method="post">
+                                        <input type="text" name="kode" value="<?= $_GET['kode']; ?>">
+                                        <input type="text" name="no_tiket" value="<?= $d['no_tiket']; ?>">
+                                        <input type="text" name="id_penumpang" value="<?= $d['id_penumpang']; ?>">
                                         <img src="" class="img-fluid img-thumbnail gambar-gerbong">
                                         <div class="form-group">
                                             <select name="gerbong" class="form-control pilih-gerbong">
@@ -128,11 +138,11 @@
                                                 <?php endfor; ?>
                                             </select>
                                         </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Pilih Gerbong</button>
+                                      </div>
                                     </form>
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
                                   </div>
                                 </div>
                               </div>
@@ -149,8 +159,9 @@
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    <form action="" method="post">
-                                        <input type="text" value="<?= $d['id_penumpang']; ?>">
+                                    <form action="<?= base_url('tamu/ubahgerbong'); ?>" method="post">
+                                        <input type="text" name="id_penumpang" value="<?= $d['id_penumpang']; ?>">
+                                        <input type="text" name="kode" value="<?= $_GET['kode']; ?>">
                                         <img src="" class="img-fluid img-thumbnail gambar-gerbong">
                                         <div class="form-group">
                                             <select name="gerbong" class="form-control pilih-gerbong">
@@ -172,7 +183,7 @@
                                                 <option value="">-- Pilih Bagian --</option>
                                                 <?php for($i = 'a'; $i <= 'b'; $i++) : ?>
                                                     <?php 
-                                                    if($d['bagian'] == $i) : 
+                                                    if($d['bagian'] === $i) : 
                                                         $select = "selected";
                                                     else :
                                                         $select = "";
@@ -187,7 +198,7 @@
                                                 <option value="" id="judulBagianA"></option>
                                                 <?php for($i = 1; $i <= 29; $i++) : ?>
                                                     <?php 
-                                                    if($d['kursi'] == $i) : 
+                                                    if($d['kursi'] === $i) : 
                                                         $select = "selected";
                                                     else :
                                                         $select = "";
@@ -202,7 +213,7 @@
                                                 <option value="" id="judulBagianB"></option>
                                                 <?php for($i = 1; $i <= 20; $i++) : ?>
                                                     <?php 
-                                                    if($d['kursi'] == $i) : 
+                                                    if($d['kursi'] === $i) : 
                                                         $select = "selected";
                                                     else :
                                                         $select = "";
@@ -212,11 +223,11 @@
                                                 <?php endfor; ?>
                                             </select>
                                         </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Ganti Gerbong</button>
+                                      </div>
                                     </form>
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
                                   </div>
                                 </div>
                               </div>

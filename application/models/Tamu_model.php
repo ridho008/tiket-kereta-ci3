@@ -103,10 +103,31 @@ class Tamu_model extends CI_Model {
 		$this->db->update('penumpang', $data);
 	}
 
+	public function pemilihanGerbong($data, $id_penumpang)
+	{
+		$this->db->where('id_penumpang', $id_penumpang);
+		$this->db->update('penumpang', $data);
+	}
+
 	public function getPenumpangById($id)
 	{
 		$this->db->where('id_penumpang', $id);
 		return $this->db->get('penumpang')->row_array();
+	}
+
+	public function getTiketByKode($noTiket)
+	{
+		return $this->db->get_where('tiket', ['no_tiket' => $noTiket])->row_array();
+	}
+
+	public function validasiGerbongKursi($gerbong, $bagian, $kursi, $id_jadwal)
+	{
+		$this->db->where('gerbong', $gerbong);
+		$this->db->where('bagian', $bagian);
+		$this->db->where('kursi', $kursi);
+		$this->db->where('tiket.id_jadwal', $id_jadwal);
+		$this->db->join('tiket', 'tiket.no_tiket = penumpang.no_tiket');
+		return $this->db->get('penumpang')->num_rows();
 	}
 
 }

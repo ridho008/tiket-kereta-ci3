@@ -113,54 +113,104 @@ class Tamu extends CI_Controller {
 
 	public function kirimKonfirmasi()
 	{
-		$this->form_validation->set_rules('gerbong', 'Gerbong', 'required|trim');
-		$this->form_validation->set_rules('bagian', 'Bagian', 'required|trim');
-		// $this->form_validation->set_rules('kursi', 'Kursi', 'required|trim');
-		if($this->form_validation->run() == FALSE) {
-			$this->konfirmasi();
-			$this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert"><i class="fas fa-info-circle"></i> Semua Inputan Wajib Diisi!</div>');
-            redirect('tamu/konfirmasi');
+		$buktiFoto = $_FILES['bukti']['name'];
+		$kode = $this->input->post('kode');
+		if($buktiFoto) {
+			$config['upload_path']          = './assets/img/bukti/';
+	        $config['allowed_types']        = 'jpg|png';
+	        $config['max_size']             = 2048;
+	        $config['max_width']            = 1024;
+	        $config['max_height']           = 768;
+
+	        $this->load->library('upload', $config);
+	        $this->upload->initialize($config);
+
+	        if ($this->upload->do_upload('bukti')) {
+	           $bukti = $this->upload->data('file_name');
+			   $kode = $this->input->post('kode');
+			   $noTiket = $this->input->post('noTiket');
+			   // Pemilihan Kursi
+			 //   $data = [
+			 //   	   'gerbong' => $this->input->post('gerbong', true),
+				//    'bagian' => $this->input->post('bagian', true),
+				//    'kursi' => $this->input->post('kursi', true)
+				// ];
+			 //   $this->Tamu_model->pemilihanKursi($data, $noTiket);
+	           $this->Tamu_model->uploadBuktiPembayaran($bukti, $kode);
+	           $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Bukti Pembayaran Berhasil Dikirim, Tunggu 24 Jam.</div>');
+	           redirect('tamu/konfirmasi');
+	        } else {
+	        	$error = array('error' => $this->upload->display_errors());
+	            $this->load->view('tamu/konfirmasi', $error);     
+	        }
 		} else {
-			$buktiFoto = $_FILES['bukti']['name'];
-
-			if($buktiFoto) {
-				$config['upload_path']          = './assets/img/bukti/';
-	            $config['allowed_types']        = 'jpg|png';
-	            $config['max_size']             = 2048;
-	            $config['max_width']            = 1024;
-	            $config['max_height']           = 768;
-
-	            $this->load->library('upload', $config);
-	            $this->upload->initialize($config);
-
-	            if ($this->upload->do_upload('bukti')) {
-	               $bukti = $this->upload->data('file_name');
-				   $kode = $this->input->post('kode');
-				   $noTiket = $this->input->post('noTiket');
-				   // Pemilihan Kursi
-				   $data = [
-				   	   'gerbong' => $this->input->post('gerbong', true),
-					   'bagian' => $this->input->post('bagian', true),
-					   'kursi' => $this->input->post('kursi', true)
-					];
-				   $this->Tamu_model->pemilihanKursi($data, $noTiket);
-	               $this->Tamu_model->uploadBuktiPembayaran($bukti, $kode);
-	               $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Bukti Pembayaran Berhasil Dikirim, Tunggu 24 Jam.</div>');
-	               redirect('tamu/konfirmasi');
-	            } else {
-	            	$error = array('error' => $this->upload->display_errors());
-	                $this->load->view('tamu/konfirmasi', $error);     
-	            }
-			}
-
-			
+			$this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert"><i class="fas fa-info-circle"></i> Anda Harus Upload Bukti Pembayaran.</div>');
+			redirect('tamu/konfirmasi?kode=' . $kode);
 		}
+
 	}
 
 
 	public function getgerbong()
 	{
 		echo json_encode($this->Tamu_model->getPenumpangById($_POST['id']));
+	}
+
+	public function pilihgerbong()
+	{
+		$kode = $this->input->post('kode');
+	   	$id_penumpang = $this->input->post('id_penumpang');
+		$this->form_validation->set_rules('gerbong', 'Gerbong', 'required|trim');
+		$this->form_validation->set_rules('bagian', 'Bagian', 'required|trim');
+		$this->form_validation->set_rules('kursi', 'Kursi', 'required|trim');
+		if($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert"><i class="fas fa-info-circle"></i> Inputan Gerbong, Bagian, Kursi Wajib Diisi.</div>');
+	    	redirect('tamu/konfirmasi?kode=' . $kode);
+		} else {
+		   	// Pemilihan gerbong, bagian & kursi
+		   	$gerbong = $this->input->post('gerbong', true);
+		   	$bagian = $this->input->post('bagian', true);
+		   	$kursi = $this->input->post('kursi', true);
+		   	$noTiket = $this->input->post('no_tiket');
+
+		   	$data = [
+		   	   'gerbong' => $gerbong,
+			   'bagian' => $bagian,
+			   'kursi' => $kursi
+			];
+
+			// jika kursi sudah ada di pilih
+			$tiket = $this->Tamu_model->getTiketByKode($noTiket);
+			$id_jadwal = $tiket['id_jadwal'];
+			// var_dump($tiket); die;
+			$cek  = $this->Tamu_model->validasiGerbongKursi($gerbong, $bagian, $kursi, $id_jadwal);
+
+			if($cek > 0) {
+				$this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert"><i class="fas fa-info-circle"></i> Maaf Kursi No. '. $kursi .' Sudah Dipesan Oleh Orang. Silahkan Pilih Nomor Kursi Lainnya.</div>');
+			    redirect('tamu/konfirmasi?kode=' . $kode);
+			} else {
+		   		$this->Tamu_model->pemilihanGerbong($data, $id_penumpang);
+			    $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert"><i class="fas fa-info-circle"></i> Anda Berhasil Memilih Gerbong.</div>');
+			    redirect('tamu/konfirmasi?kode=' . $kode);
+			}
+
+
+		}
+	}
+
+	public function ubahgerbong()
+	{
+		$kode = $this->input->post('kode');
+	   	$id_penumpang = $this->input->post('id_penumpang');
+	   	// Pemilihan Kursi
+	   	$data = [
+	   	   'gerbong' => $this->input->post('gerbong', true),
+		   'bagian' => $this->input->post('bagian', true),
+		   'kursi' => $this->input->post('kursi', true)
+		];
+	   	$this->Tamu_model->pemilihanGerbong($data, $id_penumpang);
+	    $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert"><i class="fas fa-info-circle"></i> Anda Berhasil Mengubah Gerbong.</div>');
+	    redirect('tamu/konfirmasi?kode=' . $kode);
 	}
 
 }
