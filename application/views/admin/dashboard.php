@@ -28,6 +28,16 @@
                 			  </div>
                 			</form>
                 		</div>
+                        <div class="col-md-4">
+                            <form action="" method="post">
+                                <div class="input-group mb-3">
+                                  <input type="text" class="form-control" name="keyword" placeholder="Cari stasiun">
+                                  <div class="input-group-append">
+                                    <input type="submit" name="submit" class="btn btn-outline-primary" type="button" value="Cari">
+                                  </div>
+                                </div>
+                            </form>
+                        </div>
                 	</div>
                 	<div class="table-responsive">
                 		<table class="table table-striped table-bordered text-center">
@@ -39,9 +49,9 @@
                 				</tr>
                 			</thead>
                 			<tbody>
-                				<?php $no = 1; foreach($stasiun as $s) : ?>
+                				<?php foreach($stasiun as $s) : ?>
                 				<tr>
-                                   <td><?= $no++; ?></td>
+                                   <td><?= ++$start; ?></td>
                                    <td><?= $s['nama_stasiun']; ?></td>
                                    <td>
                                    	<button type="button" class="btn btn-primary tombolUbahStasiun" data-toggle="modal" data-id="<?= $s['id_stasiun']; ?>" data-target="#formModalUbahStasiun"><i class="fas fa-edit"></i></button>
@@ -52,6 +62,11 @@
                 			</tbody>
                 		</table>
                 	</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 offset-md-4">
+                        <?= $this->pagination->create_links(); ?>
+                    </div>
                 </div>
             </div>
         </div>

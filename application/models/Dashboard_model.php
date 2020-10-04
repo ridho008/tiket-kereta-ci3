@@ -21,4 +21,17 @@ class Dashboard_model extends CI_Model {
 		return $this->db->get_where('stasiun', ['id_stasiun' => $id])->row_array();
 	}
 
+	public function countAllStasiun()
+	{
+		return $this->db->get('stasiun')->num_rows();
+	}
+
+	public function getAllStasiun($limit, $start, $keyword)
+	{
+		if($keyword) {
+			$this->db->like('nama_stasiun', $keyword);
+		}
+		return $this->db->get('stasiun', $limit, $start)->result_array();
+	}
+
 }
