@@ -5,7 +5,7 @@
 </style>
 <div class="container">
     <div class="row">
-        <div class="col-md-8 offset-md-2 py-5">
+        <div class="col-md py-5">
             <div class="card">
                 <div class="card-header bg-dark text-light text-center">
                     Selamat Datang <?= $admin['username']; ?>
@@ -45,6 +45,11 @@
                                    <td>
                                    	<button type="button" class="btn btn-primary tombolUbahJadwal btn-sm" data-toggle="modal" data-id="<?= $j['id_jadwal']; ?>" data-target="#formModalJadwal"><i class="fas fa-edit"></i></button>
                                    	<a href="<?= base_url('jadwal/hapus/') . $j['id_jadwal']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ?')"><i class="fas fa-trash"></i></a>
+                                    <?php if($j['status'] == '1') : ?>
+                                        <div class="badge badge-success p-2" data-toggle="tooltip" data-placement="top" title="Kereta Sudah Berangkat"><i class="fas fa-subway"></i></div>
+                                        <?php else : ?>
+                                        <a href="<?= base_url('jadwal/berangkat/') . $j['id_jadwal']; ?>" data-toggle="tooltip" data-placement="top" title="Berangkatkan Kereta ?" class="btn btn-info btn-sm" onclick="return confirm('Berangkat ?')"><i class="fas fa-subway"></i></a>
+                                    <?php endif; ?>
                                    </td>
                                 </tr>
                 				<?php endforeach; ?>

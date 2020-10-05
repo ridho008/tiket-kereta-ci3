@@ -25,6 +25,11 @@ class Tamu extends CI_Controller {
 			$kode = $this->input->get('kode');
 			$data['noTiket'] = $this->Tamu_model->pembayaranByKode($kode)->row_array();
 			$data['detail'] = $this->Tamu_model->cekKonfirmasi($data['noTiket']['no_tiket']);
+			$tiket = $this->Tamu_model->getTiketWhere($data['noTiket']['no_tiket']);
+
+			$data['bagianA'] = $this->Tamu_model->getKursiWhere('a', $tiket['id_jadwal']);
+			// var_dump($data['bagianA']); die;
+			$data['bagianB'] = $this->Tamu_model->getKursiWhere('b', $tiket['id_jadwal']);
 		}
 		$this->form_validation->set_rules('kode_boking', 'Kode Booking', 'required|trim');
 		if($this->form_validation->run() == FALSE) {
@@ -162,7 +167,7 @@ class Tamu extends CI_Controller {
 	   	$id_penumpang = $this->input->post('id_penumpang');
 		$this->form_validation->set_rules('gerbong', 'Gerbong', 'required|trim');
 		$this->form_validation->set_rules('bagian', 'Bagian', 'required|trim');
-		$this->form_validation->set_rules('kursi', 'Kursi', 'required|trim');
+		// $this->form_validation->set_rules('kursi', 'Kursi', 'required|trim');
 		if($this->form_validation->run() == FALSE) {
 			$this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert"><i class="fas fa-info-circle"></i> Inputan Gerbong, Bagian, Kursi Wajib Diisi.</div>');
 	    	redirect('tamu/konfirmasi?kode=' . $kode);
@@ -179,6 +184,11 @@ class Tamu extends CI_Controller {
 			   'kursi' => $kursi
 			];
 
+			$noPembayaran = $this->Tamu_model->pembayaranByKode($kode['no_tiket'])->row_array();
+			// Update Kursi
+			$tbTiket = $this->Tamu_model->getTiketByKode($noPembayaran['no_tiket']);
+			$this->Tamu_model->updateKursi($kursi);
+
 			// jika kursi sudah ada di pilih
 			$tiket = $this->Tamu_model->getTiketByKode($noTiket);
 			$id_jadwal = $tiket['id_jadwal'];
@@ -193,6 +203,7 @@ class Tamu extends CI_Controller {
 			    $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert"><i class="fas fa-info-circle"></i> Anda Berhasil Memilih Gerbong.</div>');
 			    redirect('tamu/konfirmasi?kode=' . $kode);
 			}
+
 
 
 		}

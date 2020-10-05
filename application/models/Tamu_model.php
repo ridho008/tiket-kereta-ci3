@@ -12,6 +12,7 @@ class Tamu_model extends CI_Model {
 		// $this->db->join('stasiun', 'stasiun.id_stasiun = jadwal.tujuan');
 		$this->db->where('asal', $asal);
 		$this->db->where('tujuan', $tujuan);
+		$this->db->where('status', '0');
 		$this->db->like('tgl_berangkat', $tgl);
 		return $this->db->get()->result_array();
 	}
@@ -83,7 +84,7 @@ class Tamu_model extends CI_Model {
 
 	public function cekKonfirmasi($nomor)
 	{
-		$this->db->where('no_tiket', $nomor);
+		$this->db->where('penumpang.no_tiket', $nomor);
 		return $this->db->get('penumpang')->result_array();
 	}
 
@@ -143,7 +144,33 @@ class Tamu_model extends CI_Model {
 		$this->db->join('jadwal', 'jadwal.id_jadwal = tiket.id_jadwal');
 		$this->db->join('stasiun AS Asal', 'jadwal.asal = Asal.id_stasiun', 'left');
 		$this->db->join('stasiun AS Tujuan', 'jadwal.tujuan = Tujuan.id_stasiun', 'left');
+		$this->db->where('tiket.no_tiket', $noTiket);
 		return $this->db->get('tiket')->row_array();
+	}
+
+	public function getTiketWhere($noTiket)
+	{
+		return $this->db->get_where('tiket', ['no_tiket' => $noTiket])->row_array();
+	}
+
+	public function getKursiWhere($bagian, $id_jadwal)
+	{
+		$this->db->select('*, kursi.kursi AS Kursi');
+		// $this->db->join('penumpang', 'penumpang.bagian = kursi.bagian_kursi');
+		// $this->db->join('tiket', 'tiket.no_tiket = penumpang.no_tiket');
+		$this->db->where('kursi.id_jadwal', $id_jadwal);
+		$this->db->where('kursi.bagian_kursi', $bagian);
+		$this->db->where('kursi.status', 0);
+		return $this->db->get('kursi')->result_array();
+	}
+
+	public function updateKursi($id_kursi)
+	{
+		$data = [
+			'status' => '1'
+		];
+		$this->db->where('id_kursi', $id_kursi);
+		$this->db->update('kursi', $data);
 	}
 
 }

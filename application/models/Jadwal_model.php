@@ -21,7 +21,7 @@ class Jadwal_model extends CI_Model {
 			'tgl_sampai' => html_escape($this->input->post('tgl_sampai', true)),
 			'kelas' => html_escape($this->input->post('kelas', true)),
 			'harga' => html_escape($this->input->post('harga', true)),
-			'status' => '1'
+			'status' => '0'
 		];
 
 		$this->db->insert('jadwal', $data);
@@ -47,6 +47,15 @@ class Jadwal_model extends CI_Model {
 	public function getJadwalById($id)
 	{
 		return $this->db->get_where('jadwal', ['id_jadwal' => $id])->row_array();
+	}
+
+	public function keretaBerangkat($id_jadwal)
+	{
+		$data = [
+			'status' => '1'
+		];
+		$this->db->where('id_jadwal', $id_jadwal);
+		$this->db->update('jadwal', $data);
 	}
 
 }

@@ -83,4 +83,26 @@ class Admin extends CI_Controller {
 		redirect('admin/pembayaran');
 	}
 
+	// Kelola Gerbong
+	public function gerbong()
+	{
+		$data['title'] = 'Kelola Gerbong';
+		$data['admin'] = $this->db->get_where('admin', ['username' => $this->session->userdata('username')])->row_array();
+		$data['kursi'] = $this->Admin_model->joinJadwalKursi();
+		$data['jadwal'] = $this->Admin_model->getJadwal();
+		$this->load->view('layout/header', $data);
+		$this->load->view('admin/gerbong/index');
+		$this->load->view('layout/footer');
+	}
+
+	public function tambahKursi()
+	{
+		$bagian = $this->input->post('bagian');
+		$kursi = $this->input->post('kursi');
+		$id_jadwal = $this->input->post('jadwal');
+		$this->Admin_model->aksiTambahKursi($bagian, $kursi, $id_jadwal);
+		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">'.$kursi.' Kursi Dijadwal '. $id_jadwal .' Berhasil Ditambahkan.</div>');
+		redirect('admin/gerbong');
+	}
+
 }

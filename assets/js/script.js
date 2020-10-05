@@ -95,35 +95,35 @@ $(function() {
 	// }
 
 
-	// $('.pilih-gerbong').on('change', function() {
-	// 	var gambarGerbong = $('.gambar-gerbong');
-	// 	var pilihGerbong = $('.pilih-gerbong').val();
+	$('.pilih-gerbong').on('change', function() {
+		var gambarGerbong = $('.gambar-gerbong');
+		var pilihGerbong = $('.pilih-gerbong').val();
 
-	// 	if(pilihGerbong == '1') {
-	// 		$(gambarGerbong).attr('src', 'http://localhost/tiket-kereta-ci3/assets/img/gerbong/index.jpeg');
-	// 	} else if(pilihGerbong == '2') {
-	// 		$(gambarGerbong).attr('src', 'http://localhost/tiket-kereta-ci3/assets/img/gerbong/gerbong1.jpg');
-	// 	} else if(pilihGerbong == '2') {
-	// 		$(gambarGerbong).attr('src', 'http://localhost/tiket-kereta-ci3/assets/img/gerbong/index.jepg');
-	// 	}
-	// });
+		if(pilihGerbong == '1') {
+			$(gambarGerbong).attr('src', 'http://localhost/tiket-kereta-ci3/assets/img/gerbong/index.jpeg');
+		} else if(pilihGerbong == '2') {
+			$(gambarGerbong).attr('src', 'http://localhost/tiket-kereta-ci3/assets/img/gerbong/gerbong1.jpg');
+		} else if(pilihGerbong == '2') {
+			$(gambarGerbong).attr('src', 'http://localhost/tiket-kereta-ci3/assets/img/gerbong/index.jepg');
+		}
+	});
 
 	
-	// $('.bagian').change(function() {
-	// 	var bagian = $('.bagian').val();
-	// 	var bagianA = $('.bagianA');
-	// 	var bagianB = $('.bagianB');
+	$('.bagian').change(function() {
+		var bagian = $('.bagian').val();
+		var bagianA = $('.bagianA');
+		var bagianB = $('.bagianB');
 
-	// 	if(bagian == 'a') {
-	// 		$('.bagianA').show();
-	// 		$('#judulBagianA').html('-- Pilih Bagian A --');
-	// 		$('.bagianB').hide();
-	// 	} else if(bagian == 'b') {
-	// 		$('.bagianB').show();
-	// 		$('#judulBagianB').html('-- Pilih Bagian B --');
-	// 		$('.bagianA').hide();
-	// 	}
-	// });
+		if(bagian == 'a') {
+			$('.bagianA').show();
+			$('#judulBagianA').html('-- Pilih Bagian A --');
+			$('.bagianB').hide();
+		} else if(bagian == 'b') {
+			$('.bagianB').show();
+			$('#judulBagianB').html('-- Pilih Bagian B --');
+			$('.bagianA').hide();
+		}
+	});
 
 	// $(".tombolGerbong").click(function(){
  //        var url_string = "http://localhost/tiket-kereta-ci3/tamu/konfirmasi"; //window.location.href

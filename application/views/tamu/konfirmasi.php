@@ -58,6 +58,8 @@
                                 <th>Kursi</th>
                                 <?php if($noTiket['status'] != 2) : ?>
                                 <th><i class="fas fa-cogs"></i></th>
+                                <?php else : ?>
+                                    <th class="d-none"><i class="fas fa-cogs"></i></th>
                                 <?php endif; ?>
                             </tr>
                             <?php foreach($detail as $d) : ?>
@@ -89,8 +91,7 @@
                                 <td>
                                     <?php if(empty($d['kursi']) && empty($d['gerbong']) && empty($d['bagian'])) : ?>
                                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#pilihGerbong<?= $d['id_penumpang']; ?>"><i class="fas fa-hand-pointer"></i></button>
-                                    <?php else : ?>
-                                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#gantiGerbong<?= $d['id_penumpang']; ?>"><i class="fas fa-pen-square"></i></button>
+                                        <!-- <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#gantiGerbong<?= $d['id_penumpang']; ?>"><i class="fas fa-pen-square"></i></button> -->
                                     <?php endif; ?>
                                 </td>
                                 <?php endif; ?>
@@ -129,17 +130,17 @@
                                         <div class="form-group">
                                             <select name="kursi" class="form-control bagianA">
                                                 <option value="" id="judulBagianA"></option>
-                                                <?php for($i = 1; $i <= 29; $i++) : ?>
-                                                <option value="<?= $i; ?>"><?= $i; ?></option>
-                                                <?php endfor; ?>
+                                                <?php foreach($bagianA as $bA) : ?>
+                                                    <option value="<?= $bA['id_kursi']; ?>"><?= $bA['Kursi']; ?></option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <select name="kursi" class="form-control bagianB">
                                                 <option value="" id="judulBagianB"></option>
-                                                <?php for($i = 1; $i <= 20; $i++) : ?>
-                                                <option value="<?= $i; ?>"><?= $i; ?></option>
-                                                <?php endfor; ?>
+                                                <?php foreach($bagianB as $bB) : ?>
+                                                    <option value="<?= $bB['id_kursi']; ?>"><?= $bB['Kursi']; ?></option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                       <div class="modal-footer">
@@ -153,7 +154,7 @@
                             </div>
 
                             <!-- Modal Ganti -->
-                            <div class="modal fade" id="gantiGerbong<?= $d['id_penumpang']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <!-- <div class="modal fade" id="gantiGerbong<?= $d['id_penumpang']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog">
                                 <div class="modal-content">
                                   <div class="modal-header">
@@ -235,50 +236,18 @@
                                   </div>
                                 </div>
                               </div>
-                            </div>
+                            </div> -->
                             <?php endforeach; ?>
                         </table>
                         <p class="float-right">Total Pembayaran : <strong>Rp.<?= number_format($noTiket['total_pembayaran'], 0, ',', '.'); ?></strong></p>
                         <?php if($noTiket['status'] == 2) : ?>
                         <form action="<?= base_url('tamu/cetak'); ?>" method="post" target="_blank">
-                            <input type="text" name="no_tiket" value="<?= $noTiket['no_tiket']; ?>">
-                            <button class="btn btn-secondary btn-sm"><i class="fas fa-print"></i> Cetak</button>
+                            <input type="hidden" name="no_tiket" value="<?= $noTiket['no_tiket']; ?>">
+                            <button type="submit" class="btn btn-secondary btn-sm"><i class="fas fa-print"></i> Cetak</button>
                         </form>
                         <?php endif; ?>
                         <?php if($noTiket['status'] == 0) : ?>
                         <?= form_open_multipart('kirimKonfirmasi'); ?>
-                        <!-- <img src="" class="img-fluid img-thumbnail" id="gambar-gerbong">
-                        <div class="form-group">
-                            <select name="gerbong" id="pilih-gerbong" class="form-control">
-                                <option value="">-- Pilih Gerbong --</option>
-                                <option value="1">Gerbong 1</option>
-                                <option value="2">Gerbong 2</option>
-                                <option value="3">Gerbong 3</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select name="bagian" id="bagian" class="form-control">
-                                <option value="">-- Pilih Bagian --</option>
-                                <option value="a">A</option>
-                                <option value="b">B</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select name="kursi" id="bagianA" class="form-control">
-                                <option value="" id="judulBagianA"></option>
-                                <?php for($i = 1; $i <= 29; $i++) : ?>
-                                <option value="<?= $i; ?>"><?= $i; ?></option>
-                                <?php endfor; ?>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <select name="kursi" id="bagianB" class="form-control">
-                                <option value="" id="judulBagianB"></option>
-                                <?php for($i = 1; $i <= 20; $i++) : ?>
-                                <option value="<?= $i; ?>"><?= $i; ?></option>
-                                <?php endfor; ?>
-                            </select>
-                        </div> -->
                         <div class="form-group">
                             <input type="hidden" name="kode" value="<?= $_GET['kode']; ?>">
                             <input type="hidden" name="noTiket" value="<?= $noTiket['no_tiket']; ?>">

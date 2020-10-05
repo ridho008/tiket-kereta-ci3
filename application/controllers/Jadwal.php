@@ -53,5 +53,12 @@ class Jadwal extends CI_Controller {
 		redirect('jadwal');
 	}
 
+	public function berangkat($id_jadwal)
+	{	
+		$this->Jadwal_model->keretaBerangkat($id_jadwal);
+		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Kereta Sudah Berangkat.</div>');
+		redirect('jadwal');
+	}
+
 
 }
