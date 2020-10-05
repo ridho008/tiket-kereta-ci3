@@ -13,9 +13,11 @@
                 </div>
                 <div class="card-body">
                 	<h5 class="text-muted"> Daftar Kursi Kereta API</h5>
+                    <div class="alert alert-danger" role="alert"><i class="fas fa-info-circle"></i> <strong>Perhatian !</strong> Jika Klik <strong>Tombol Hapus Semua Gerbong</strong> Data Akan Terhapus Semua Secara Total !!!</div>
                 	<div class="row">
                 		<div class="col-md-6">
                 			<button type="button" class="btn btn-primary mb-2 tombolTambahKursi" data-toggle="modal" data-target="#formModalKursi"><i class="fas fa-plus-circle"></i> Tambah Kursi</button>
+                            <a href="<?= base_url('hapus/semua/kursi'); ?>" class="btn btn-danger mb-2" onclick="return confirm('Yakin ?')" data-toggle="tooltip" data-placement="bottom" title="Hapus Semua Data Gerbong ?"><i class="fas fa-trash-alt"></i></a>
                 		</div>
                 	</div>
                 	<div class="table-responsive">

@@ -96,5 +96,21 @@ class Dashboard extends CI_Controller {
 		redirect('dashboard');
 	}
 
+	public function hapusSemua($table)
+	{
+		$this->Dashboard_model->hapusSemuaStasiun($table);
+
+		if($table == 'stasiun') :
+			redirect('dashboard');
+		elseif($table == 'jadwal') :
+			redirect('jadwal');
+		elseif($table == 'kursi') :
+			redirect('admin/gerbong');
+		endif;
+
+		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Semua Stasiun Berhasil Dihapus.</div>');
+		redirect('dashboard');
+	}
+
 
 }

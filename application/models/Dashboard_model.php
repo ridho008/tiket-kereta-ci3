@@ -34,4 +34,9 @@ class Dashboard_model extends CI_Model {
 		return $this->db->get('stasiun', $limit, $start)->result_array();
 	}
 
+	public function hapusSemuaStasiun($table)
+	{
+		$this->db->truncate($table);
+	}
+
 }

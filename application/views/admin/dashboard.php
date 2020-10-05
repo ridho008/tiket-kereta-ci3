@@ -13,6 +13,7 @@
                 </div>
                 <div class="card-body">
                 	<h5 class="text-muted"> Daftar Stasiun Kereta API</h5>
+                    <div class="alert alert-danger" role="alert"><i class="fas fa-info-circle"></i> <strong>Perhatian !</strong> Jika Klik <strong>Tombol Hapus Semua Stasiun</strong> Data Akan Terhapus Semua Secara Total !!!</div>
                 	<div class="row">
                 		<div class="col-md-8">
                 			<form action="" method="post">
@@ -27,6 +28,8 @@
                 			    </div>
                 			  </div>
                 			</form>
+                            <a href="<?= base_url('hapus/semua/stasiun'); ?>" class="btn btn-danger mb-2" onclick="return confirm('Yakin ?')" data-toggle="tooltip" data-placement="bottom" title="Hapus Semua Data Stasiun ?"><i class="fas fa-trash-alt"></i></a>
+
                 		</div>
                         <div class="col-md-4">
                             <form action="" method="post">

@@ -55,6 +55,6 @@ $route['pesanTiket'] = 'tamu/pesanTiket';
 $route['pembayaran'] = 'tamu/pembayaran';
 $route['cekKonfirmasi'] = 'tamu/cekKonfirmasi';
 $route['kirimKonfirmasi'] = 'tamu/kirimKonfirmasi';
-// $route['tamu/kirimKonfirmasi/(:any)'] = 'tamu/kirimKonfirmasi/$1';
+$route['hapus/semua/(:any)'] = 'dashboard/hapusSemua/$1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

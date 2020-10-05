@@ -12,10 +12,12 @@
                 </div>
                 <div class="card-body">
                 	<h5 class="text-muted"> Daftar Jadwal Stasiun Kereta API</h5>
+                    <div class="alert alert-danger" role="alert"><i class="fas fa-info-circle"></i> <strong>Perhatian !</strong> Jika Klik <strong>Tombol Hapus Semua Jadwal</strong> Data Akan Terhapus Semua Secara Total !!!</div>
                 	<div class="row">
                 		<div class="col-md-8">
                 			<button type="button" class="btn btn-primary tombolTambahJadwal mb-2" data-toggle="modal" data-target="#formModalJadwal"><i class="fas fa-plus-circle"></i> Tambah Data Jadwal</button>
                             <?= $this->session->flashdata('pesan'); ?>
+                            <a href="<?= base_url('hapus/semua/jadwal'); ?>" class="btn btn-danger mb-2" onclick="return confirm('Yakin ?')" data-toggle="tooltip" data-placement="bottom" title="Hapus Semua Data Jadwal ?"><i class="fas fa-trash-alt"></i></a>
                 		</div>
                 	</div>
                 	<div class="table-responsive">
